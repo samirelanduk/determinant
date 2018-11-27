@@ -1,5 +1,6 @@
 <!doctype html>
 {% load sass_tags %}
+{% load humanize %}
 <html>
 
 <head>
@@ -37,16 +38,18 @@
             <th>{{ habit.name }}</th>
             {% endfor %}
             <th>Day Total</th>
+            <th>Weighted Total</th>
             <th>Running Total</th>
         </tr>
         {% for day in progressium.days reversed %}
         <tr>
-            <td>{{ day.date }}</td>
+            <td>{{ day.date|naturalday }}</td>
             {% for score in day.scores %}
             <td class="score {% if score > 0 %}good{% else %}{% if score == 0 %}fine{% else %}{% if score < 0 %}wrong{% endif %}{% endif %}{% endif %}">{% if score != None %}{{ score }}{% endif %}</td>
             {% endfor %}
             <td>{{ day.score_total }}</td>
-            <td>{{ day.running_total }}</td>
+            <td>{{ day.weighted_total|floatformat:"2" }}</td>
+            <td>{{ day.running_total|floatformat:"2" }}</td>
         </tr>
         {% endfor %}
     </table>

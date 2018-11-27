@@ -118,7 +118,7 @@ class Day:
     def __init__(self, date, habit_days, previous_running):
         self.date = date
         self.habit_days = habit_days
-        self.running_total = previous_running + self.score_total()
+        self.running_total = previous_running + self.weighted_total()
 
 
     def scores(self):
@@ -127,3 +127,7 @@ class Day:
 
     def score_total(self):
         return sum([s for s in self.scores() if s is not None])
+
+
+    def weighted_total(self):
+        return self.score_total() / len([d for d in self.habit_days if d is not None])

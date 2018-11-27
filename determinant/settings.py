@@ -14,6 +14,7 @@ INSTALLED_APPS = [
  "django.contrib.staticfiles",
  "django.contrib.auth",
  "django.contrib.sessions",
+ "django.contrib.humanize",
  "sass_processor",
  "determinant"
 ]
