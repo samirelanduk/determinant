@@ -25,7 +25,19 @@
             <th>Day Total</th>
             <th>Running Total</th>
         </tr>
-        {% for day in progressium.days %}
+        <tr>
+            <td></td>
+            {% for history in progressium.histories %}
+            <td>{{ history.next_cheat }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td></td>
+            {% for history in progressium.histories %}
+            <td>{{ history.target_streak }}</td>
+            {% endfor %}
+        </tr>
+        {% for day in progressium.days reversed %}
         <tr>
             <td>{{ day.date }}</td>
             {% for score in day.scores %}
