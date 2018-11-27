@@ -1,0 +1,35 @@
+html {
+    font-family: Raleway;
+}
+
+table {
+
+    border-collapse: collapse;
+    text-align: center;
+
+    td, th {
+        border: 1px solid #ccc;
+        font-size: 80%;
+        padding: 3px;
+    }
+
+    .no-border {
+        border: none;
+    }
+
+    .score {
+        background-color: #95a5a6;
+    }
+
+    .wrong {
+        background-color: #c0392b;
+    }
+
+    .good {
+        background-color: #2ecc71;
+    }
+
+    .fine {
+        background-color: #f39c12;
+    }
+}

@@ -27,11 +27,11 @@ MIDDLEWARE = [
  "django.contrib.auth.middleware.AuthenticationMiddleware",
 ]
 
-STATIC_URL = "/static/" # URL root for static files
-STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, "../static"))
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.abspath(f"{BASE_DIR}/../static")
+SASS_PROCESSOR_ROOT = os.path.abspath(f"{BASE_DIR}/determinant/static")
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 MEDIA_URL = "/uploads/"
-SASS_PROCESSOR_ROOT = os.path.abspath(os.path.join(BASE_DIR, "samireland", "static"))
 
 TEMPLATES = [{
  "BACKEND": "django.template.backends.django.DjangoTemplates",

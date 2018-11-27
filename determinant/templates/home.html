@@ -9,6 +9,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Habit Tracking</title>
   <script src="https://code.jquery.com/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <link href="{% sass_src 'css/style.scss' %}" rel="stylesheet" type="text/css">
   {% block css %}{% endblock %}
   <!--analytics-->
 </head>
@@ -18,6 +20,18 @@
 
     <table>
         <tr>
+            <td class="no-border"></td>
+            {% for history in progressium.histories %}
+            <td>{{ history.next_cheat }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td class="no-border"></td>
+            {% for history in progressium.histories %}
+            <td>{{ history.target_streak }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
             <th>Date</th>
             {% for habit in progressium.habits %}
             <th>{{ habit.name }}</th>
@@ -25,23 +39,11 @@
             <th>Day Total</th>
             <th>Running Total</th>
         </tr>
-        <tr>
-            <td></td>
-            {% for history in progressium.histories %}
-            <td>{{ history.next_cheat }}</td>
-            {% endfor %}
-        </tr>
-        <tr>
-            <td></td>
-            {% for history in progressium.histories %}
-            <td>{{ history.target_streak }}</td>
-            {% endfor %}
-        </tr>
         {% for day in progressium.days reversed %}
         <tr>
             <td>{{ day.date }}</td>
             {% for score in day.scores %}
-            <td>{{ score }}</td>
+            <td class="score {% if score > 0 %}good{% else %}{% if score == 0 %}fine{% else %}{% if score < 0 %}wrong{% endif %}{% endif %}{% endif %}">{% if score != None %}{{ score }}{% endif %}</td>
             {% endfor %}
             <td>{{ day.score_total }}</td>
             <td>{{ day.running_total }}</td>
