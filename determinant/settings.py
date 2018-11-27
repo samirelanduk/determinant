@@ -18,6 +18,8 @@ INSTALLED_APPS = [
  "determinant"
 ]
 
+DATE_FORMAT = "l j F, Y"
+
 MIDDLEWARE = [
  "django.contrib.sessions.middleware.SessionMiddleware",
  "django.middleware.common.CommonMiddleware",
