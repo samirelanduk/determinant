@@ -23,6 +23,9 @@
             {% for history in progressium.histories %}
             <td>{{ history.next_cheat }}</td>
             {% endfor %}
+            <td class="no-border"></td>
+            <td class="no-border"><a href="?day={{ previous }}">&#9664;</a></td>
+            <td class="no-border"><a href="?day={{ next }}">&#9654;</a></td>
         </tr>
         <tr>
             <td class="no-border"></td>
@@ -47,7 +50,7 @@
         </tr>
         {% for day in progressium.days reversed %}
         <tr>
-            <td>{{ day.date|naturalday }}</td>
+            <td>{{ day.date|naturalday|title }}</td>
             {% for score in day.scores %}
             <td class="score {% if score > 0 %}good{% else %}{% if score == 0 %}fine{% else %}{% if score < 0 %}wrong{% endif %}{% endif %}{% endif %}">{% if score != None %}{{ score }}{% endif %}</td>
             {% endfor %}
