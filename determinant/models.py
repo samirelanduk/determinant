@@ -15,6 +15,10 @@ class Habit(models.Model):
         ordering = ["start_date"]
 
 
+    def __str__(self):
+        return f"<Habit ({self.name})>"
+
+
     def history(self, day):
         return History(self, day)
 
@@ -53,14 +57,17 @@ class Progressium:
         today = end
         day = start
         self.days = []
-        histories = [habit.history(end) for habit in habit_set if habit.start_date <= end]
+        histories = [habit.history(end) for habit in habit_set
+         if habit.start_date <= end]
         self.histories = histories
         running = 0
         while not self.days or self.days[-1].date != today:
             habit_days = []
             for history in histories:
                 habit_days.append(history.get_day(day))
-            self.days.append(Day(date=day, habit_days=habit_days, previous_running=running))
+            self.days.append(Day(
+             date=day, habit_days=habit_days, previous_running=running
+            ))
             running = self.days[-1].running_total
             day += timedelta(days=1)
 

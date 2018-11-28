@@ -14,6 +14,7 @@ INSTALLED_APPS = [
  "django.contrib.staticfiles",
  "django.contrib.auth",
  "django.contrib.sessions",
+ "django.contrib.messages",
  "django.contrib.humanize",
  "sass_processor",
  "determinant"
@@ -28,6 +29,7 @@ MIDDLEWARE = [
  "django.middleware.common.CommonMiddleware",
  "django.middleware.csrf.CsrfViewMiddleware",
  "django.contrib.auth.middleware.AuthenticationMiddleware",
+ "django.contrib.messages.middleware.MessageMiddleware"
 ]
 
 STATIC_URL = "/static/"
@@ -42,6 +44,7 @@ TEMPLATES = [{
  "OPTIONS": {
   "context_processors": [
    "django.contrib.auth.context_processors.auth",
+   "django.contrib.messages.context_processors.messages"
   ],
  },
 }]

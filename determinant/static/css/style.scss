@@ -194,7 +194,12 @@ table {
     td, th {
         border: 1px solid #cccccc48;
         font-size: 80%;
-        padding: 3px;
+        padding: 2px;
+
+        form {
+            text-align: center;
+            padding: 0px;
+        }
 
         span {
             font-size: 75%;
@@ -213,13 +218,26 @@ table {
 
     .wrong {
         background-color: #c0392b;
+        cursor: pointer;
     }
 
     .good {
         background-color: #2ecc71;
+        cursor: pointer;
     }
 
     .fine {
         background-color: #f39c12;
+        cursor: pointer;
+    }
+
+    .changed {
+        font-style: italic;
+        font-weight: bold;
+        form {
+            border: 1px solid #006266;
+        }
+
+
     }
 }

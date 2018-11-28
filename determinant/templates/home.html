@@ -2,6 +2,7 @@
 {% load humanize %}
 
 {% block body %}
+{{ messages.0.message }}
     <table>
         <tr>
             <td class="no-border"></td>
@@ -37,7 +38,24 @@
         <tr>
             <td>{{ day.date|naturalday|title }}</td>
             {% for score in day.scores %}
-            <td class="score {% if score > 0 %}good{% else %}{% if score == 0 %}fine{% else %}{% if score < 0 %}wrong{% endif %}{% endif %}{% endif %}">{% if score != None %}{{ score }}{% endif %}</td>
+            <td class="score {% if score > 0 %}
+                good
+                {% else %}
+                  {% if score == 0 %}
+                    fine
+                  {% else %}
+                    {% if score < 0 %}
+                      wrong
+                    {% endif %}
+                  {% endif %}
+                {% endif %}{% if messages and messages.0 == day.date|date:'Y-m-d' and messages.1 == forloop.counter0 %} changed{% endif %}" ondblclick="console.log($(this).find('form')[0].submit())">
+                <form method="POST">
+                {% if score != None %}{{ score }}{% endif %}
+                <input type="hidden" name="day" value="{{ day.date|date:"Y-m-d" }}">
+                <input type="hidden" name="habit" value="{{ forloop.counter0 }}">
+                {% csrf_token %}
+                </form>
+            </td>
             {% endfor %}
             <td>{{ day.score_total }}</td>
             <td>{{ day.weighted_total|floatformat:"2" }}</td>
@@ -45,4 +63,6 @@
         </tr>
         {% endfor %}
     </table>
+    {{ messages.0 }}
 {% endblock %}
+and messages.0 == day.date and messages.1 == forloop.counter0
