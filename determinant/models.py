@@ -1,4 +1,5 @@
 from django.db import models
+from django.http import Http404
 from datetime import timedelta
 
 class Habit(models.Model):
@@ -47,12 +48,13 @@ class Progressium:
     """A representation of a user's habit history over all their habits."""
 
     def __init__(self, habit_set, end):
+        self.end = end
         self.habits = habit_set
         start = self.habits.first().start_date
         today = end
         day = start
         self.days = []
-        histories = [habit.history(end) for habit in habit_set]
+        histories = [habit.history(end) for habit in habit_set if habit.start_date <= end]
         self.histories = histories
         running = 0
         while not self.days or self.days[-1].date != today:
@@ -62,6 +64,10 @@ class Progressium:
             self.days.append(Day(date=day, habit_days=habit_days, previous_running=running))
             running = self.days[-1].running_total
             day += timedelta(days=1)
+
+
+    def active_habits(self):
+        return [h for h in self.habits if h.start_date <= self.end]
 
 
 
@@ -76,9 +82,7 @@ class History:
         cheat = cheats[0]
         last_penalty = 0
         self.badges = 0
-        print(today)
         while not self.days or self.days[-1].date != today:
-            print(day)
             record = habit.record_set.filter(date=day)
             success = record.first().success if record else not habit.positive
             cheat_allowed = cheat <= 0
@@ -134,4 +138,6 @@ class Day:
 
 
     def weighted_total(self):
-        return self.score_total() / len([d for d in self.habit_days if d is not None])
+        try:
+            return self.score_total() / len([d for d in self.habit_days if d is not None])
+        except: raise Http404

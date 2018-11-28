@@ -41,7 +41,7 @@
         </tr>
         <tr>
             <th>Date</th>
-            {% for habit in progressium.habits %}
+            {% for habit in progressium.active_habits %}
             <th>{{ habit.name }}</th>
             {% endfor %}
             <th>Day Total</th>
