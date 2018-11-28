@@ -20,6 +20,8 @@ INSTALLED_APPS = [
 ]
 
 DATE_FORMAT = "D j M, Y"
+USE_TZ = True
+TIME_ZONE = "Europe/London"
 
 MIDDLEWARE = [
  "django.contrib.sessions.middleware.SessionMiddleware",

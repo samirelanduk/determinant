@@ -9,6 +9,7 @@ class Habit(models.Model):
     reward = models.CharField(max_length=16)
     penalty = models.IntegerField()
     cheat = models.CharField(max_length=32)
+    positive = models.BooleanField()
 
     class Meta:
         ordering = ["start_date"]
@@ -77,7 +78,7 @@ class History:
         last_penalty = 0
         while not self.days or self.days[-1].date != today:
             record = habit.record_set.filter(date=day)
-            success = record.first().success if record else False
+            success = record.first().success if record else not habit.positive
             cheat_allowed = cheat <= 0
             self.days.append(HabitDay(
              date=day, success=success,
