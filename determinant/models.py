@@ -53,23 +53,26 @@ class Progressium:
     def __init__(self, habit_set, end):
         self.end = end
         self.habits = habit_set
-        start = self.habits.first().start_date
-        today = end
-        day = start
         self.days = []
-        histories = [habit.history(end) for habit in habit_set
-         if habit.start_date <= end]
-        self.histories = histories
-        running = 0
-        while not self.days or self.days[-1].date != today:
-            habit_days = []
-            for history in histories:
-                habit_days.append(history.get_day(day))
-            self.days.append(Day(
-             date=day, habit_days=habit_days, previous_running=running
-            ))
-            running = self.days[-1].running_total
-            day += timedelta(days=1)
+        if self.habits:
+            start = self.habits.first().start_date
+            today = end
+            day = start
+            histories = [habit.history(end) for habit in habit_set
+             if habit.start_date <= end]
+            self.histories = histories
+            running = 0
+            try:
+                while not self.days or self.days[-1].date != today:
+                    habit_days = []
+                    for history in histories:
+                        habit_days.append(history.get_day(day))
+                    self.days.append(Day(
+                     date=day, habit_days=habit_days, previous_running=running
+                    ))
+                    running = self.days[-1].running_total
+                    day += timedelta(days=1)
+            except ZeroDivisionError: pass
 
 
     def active_habits(self):
@@ -144,6 +147,4 @@ class Day:
 
 
     def weighted_total(self):
-        try:
-            return self.score_total() / len([d for d in self.habit_days if d is not None])
-        except: raise Http404
+        return self.score_total() / len([d for d in self.habit_days if d is not None])
