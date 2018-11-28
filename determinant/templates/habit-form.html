@@ -1,0 +1,40 @@
+<form method="POST">
+    {% if form.errors.name %}
+    <div class="error" id="name-error">{{ form.errors.name.0 }}</div>
+    {% endif %}
+    {{ form.name.label_tag }}
+    {{ form.name }}
+
+    {% if form.errors.description %}
+    <div class="error" id="description-error">{{ form.errors.description.0 }}</div>
+    {% endif %}
+    {{ form.description.label_tag }}
+    {{ form.description }}
+
+    {% if form.errors.start_date %}
+    <div class="error" id="start_date-error">{{ form.errors.start_date.0 }}</div>
+    {% endif %}
+    {{ form.start_date.label_tag }}
+    {{ form.start_date }}
+
+    {% if form.errors.penalty %}
+    <div class="error" id="penalty-error">{{ form.errors.penalty.0 }}</div>
+    {% endif %}
+    {{ form.penalty.label_tag }}
+    {{ form.penalty }}
+
+    {% if form.errors.cheat %}
+    <div class="error" id="cheat-error">{{ form.errors.cheat.0 }}</div>
+    {% endif %}
+    {{ form.cheat.label_tag }}
+    {{ form.cheat }}
+
+    {% if form.errors.positive %}
+    <div class="error" id="positive-error">{{ form.errors.positive.0 }}</div>
+    {% endif %}
+    {{ form.positive.label_tag }}
+    {{ form.positive }}
+
+    {% csrf_token %}
+    <input type="submit" value="Save">
+</form>

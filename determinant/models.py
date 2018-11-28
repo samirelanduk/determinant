@@ -7,7 +7,6 @@ class Habit(models.Model):
     name = models.CharField(max_length=256)
     description = models.TextField()
     start_date = models.DateField()
-    reward = models.CharField(max_length=16)
     penalty = models.IntegerField()
     cheat = models.CharField(max_length=32)
     positive = models.BooleanField()

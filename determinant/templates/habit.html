@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block body %}
+<p><a href="/">↰</a></p>
+<h1>{{ habit.name }}</h1>
+<p>{{ habit.description }}</p>
+
+{% include "habit-form.html" %}
+{% endblock %}
