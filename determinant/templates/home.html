@@ -29,7 +29,13 @@
         <tr>
             <td class="no-border"></td>
             {% for history in progressium.histories %}
-            <td>{{ history.target_streak }}</td>
+            <td>{{ history.target_streak }} <span>🎯</span></td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td class="no-border"></td>
+            {% for history in progressium.histories %}
+            <td>{{ history.badges }} <span>🏆</span></td>
             {% endfor %}
         </tr>
         <tr>

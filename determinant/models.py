@@ -76,6 +76,7 @@ class History:
         cheats = habit.cheats()
         cheat = cheats[0]
         last_penalty = 0
+        self.badges = 0
         while not self.days or self.days[-1].date != today:
             record = habit.record_set.filter(date=day)
             success = record.first().success if record else not habit.positive
@@ -91,6 +92,7 @@ class History:
                 cheat = cheats[0]
             day += timedelta(days=1)
             cheat -= 1
+            if cheat == 0: self.badges += 1
         self.next_cheat = today + timedelta(days=cheat + 1) if cheat > 0 else "Now"
         self.target_streak = cheats[0]
 
