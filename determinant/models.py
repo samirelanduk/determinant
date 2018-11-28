@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime, date, timedelta
+from datetime import timedelta
 
 class Habit(models.Model):
 
@@ -15,8 +15,8 @@ class Habit(models.Model):
         ordering = ["start_date"]
 
 
-    def history(self):
-        return History(self)
+    def history(self, day):
+        return History(self, day)
 
 
     def cheats(self):
@@ -46,13 +46,13 @@ class Record(models.Model):
 class Progressium:
     """A representation of a user's habit history over all their habits."""
 
-    def __init__(self, habit_set):
+    def __init__(self, habit_set, end):
         self.habits = habit_set
         start = self.habits.first().start_date
-        today = date.today()
+        today = end
         day = start
         self.days = []
-        histories = [habit.history() for habit in habit_set]
+        histories = [habit.history(end) for habit in habit_set]
         self.histories = histories
         running = 0
         while not self.days or self.days[-1].date != today:
@@ -68,16 +68,17 @@ class Progressium:
 class History:
     """A representation of a single habit's history."""
 
-    def __init__(self, habit):
+    def __init__(self, habit, today):
         self.habit = habit
         self.days = []
-        today = date.today()
         day = habit.start_date
         cheats = habit.cheats()
         cheat = cheats[0]
         last_penalty = 0
         self.badges = 0
+        print(today)
         while not self.days or self.days[-1].date != today:
+            print(day)
             record = habit.record_set.filter(date=day)
             success = record.first().success if record else not habit.positive
             cheat_allowed = cheat <= 0
