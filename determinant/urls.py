@@ -4,6 +4,7 @@ from django.conf import settings
 from .views import *
 
 urlpatterns = [
+ path(r"new/", new_habit),
  path(r"<int:pk>/", habit),
  path(r"", root)
 ]

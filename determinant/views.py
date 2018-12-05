@@ -7,7 +7,7 @@ from .forms import *
 def root(request):
     selected = None
     if request.method == "POST":
-        habit = list(Habit.objects.all())[int(request.POST["habit"])]
+        habit = list(Habit.objects.all())[int(request.POST["habit"]) - 1]
         day = datetime.strptime(request.POST["day"], "%Y-%m-%d").date()
         record = habit.record_set.filter(date=day)
         if record:
@@ -42,10 +42,23 @@ def habit(request, pk):
     form = HabitForm(instance=habit)
     if request.method == "POST":
         form = HabitForm(request.POST, instance=habit)
-        if form.is_valid:
+        if form.is_valid():
             form.save()
             return redirect(request.path)
     return render(request, "habit.html", {
      "habit": habit,
      "form": HabitForm(instance=habit)
+    })
+
+
+def new_habit(request):
+    form = HabitForm()
+    if request.method == "POST":
+        form = HabitForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("/")
+    return render(request, "habit.html", {
+     "habit": habit,
+     "form": form
     })

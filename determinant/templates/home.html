@@ -14,7 +14,7 @@
             <td class="no-border"><a href="?day={{ next }}">&#9654;</a></td>
         </tr>
         <tr>
-            <td class="no-border"></td>
+            <td class="no-border"><a href="/new/">New Habit</a></td>
             {% for history in progressium.histories %}
             <td>{{ history.target_streak }} <span>🎯</span></td>
             {% endfor %}
@@ -48,11 +48,11 @@
                       wrong
                     {% endif %}
                   {% endif %}
-                {% endif %}{% if messages and messages.0 == day.date|date:'Y-m-d' and messages.1 == forloop.counter0 %} changed{% endif %}" ondblclick="console.log($(this).find('form')[0].submit())">
+                {% endif %}{% if messages and messages.0 == day.date|date:'Y-m-d' and messages.1 == forloop.counter %} changed{% endif %}" ondblclick="console.log($(this).find('form')[0].submit())">
                 <form method="POST">
                 {% if score != None %}{{ score }}{% endif %}
                 <input type="hidden" name="day" value="{{ day.date|date:"Y-m-d" }}">
-                <input type="hidden" name="habit" value="{{ forloop.counter0 }}">
+                <input type="hidden" name="habit" value="{{ forloop.counter }}">
                 {% csrf_token %}
                 </form>
             </td>
@@ -63,6 +63,4 @@
         </tr>
         {% endfor %}
     </table>
-    {{ messages.0 }}
 {% endblock %}
-and messages.0 == day.date and messages.1 == forloop.counter0
