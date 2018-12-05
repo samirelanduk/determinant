@@ -107,7 +107,7 @@ class History:
             day += timedelta(days=1)
             cheat -= 1
             if cheat == 0: self.badges += 1
-        self.next_cheat = today + timedelta(days=cheat + 1) if cheat > 0 else "Now"
+        self.next_cheat = today + timedelta(days=cheat + 1) if cheat > 0 else "Tomorrow" if cheat == 0 else "Now" 
         self.target_streak = cheats[0]
 
 
