@@ -103,11 +103,11 @@ class History:
             if not success and not cheat_allowed: cheat = cheats[0] + 1
             if cheat_allowed and not success:
                 if len(cheats) > 1: cheats.pop(0)
-                cheat = cheats[0]
+                cheat = cheats[0] + 1
             day += timedelta(days=1)
             cheat -= 1
             if cheat == 0: self.badges += 1
-        self.next_cheat = today + timedelta(days=cheat + 1 + (not success)) if cheat > 0 else "Tomorrow" if cheat == 0 else "Now" 
+            self.next_cheat = today + timedelta(days=cheat + 1 + (not success)) if cheat > 0 else "Tomorrow" if cheat == 0 else "Now"
         self.target_streak = cheats[0]
 
 
