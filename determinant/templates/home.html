@@ -63,4 +63,35 @@
         </tr>
         {% endfor %}
     </table>
+    <br><br>
+    <div id="chart"></div>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script>
+        var data = [];
+        {% for day in progressium.days %}
+        data.push([new Date({{ day.date.year }}, {{ day.date.month }} - 1, {{ day.date.day }}, 0, 0, 0, 0).getTime(), {{ day.running_total }}]);
+        {% endfor %}
+        var chart = Highcharts.chart("chart", {
+            chart: {zoomType: "x"},
+            legend: {enabled: false},
+            title: {text: "Score Progress"},
+            credits: {enabled: false},
+            xAxis: {type: "datetime", title: {text: "Time"}},
+            yAxis: {min: 0, title: {text: "Score"}},
+            series: [{
+                data: data, color: "#3498db", lineWidth: 1,
+                marker: {enabled: false}
+            }],
+            tooltip: {
+                formatter: function() {
+                    var date = Highcharts.dateFormat('%a, %e %b %Y', new Date(this.x));
+                    var text = "<div style='font-size: 85%'>" + date + "</div><br>";
+                    var text = text + "<div><strong>Word Count</strong>: " + this.y.toFixed(2) + "</div>";
+
+
+                    return text;
+                }
+            }
+        });
+    </script>
 {% endblock %}
